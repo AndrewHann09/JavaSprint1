@@ -1,22 +1,18 @@
 /**
- * A Borrowable interface represents items that can be borrowed and returned, such as books.
+ * An interface for borrowable items.
  */
 public interface Borrowable {
     /**
-     * Borrow a specific quantity of this item to a patron.
+     * Borrows a specified number of items.
      *
-     * @param patron   The patron borrowing the item.
-     * @param quantity The quantity of items to borrow.
-     * @return True if the item is successfully borrowed, false otherwise.
+     * @param numCopies The number of items to borrow.
      */
-    boolean borrow(Patron patron, int quantity);
+    void borrow(int numCopies);
 
     /**
-     * Return a specific quantity of this item by a patron.
+     * Returns a specified number of items.
      *
-     * @param patron   The patron returning the item.
-     * @param quantity The quantity of items to return.
-     * @return True if the item is successfully returned, false otherwise.
+     * @param numCopies The number of items to return.
      */
-    boolean returnBook(Patron patron, int quantity);
+    void returnBook(int numCopies);
 }

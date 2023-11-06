@@ -1,17 +1,17 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Represents a patron who can borrow and return books from the library.
+ * Represents a library patron who can borrow and return books.
  */
 public class Patron {
     private String name;
     private String address;
     private String phoneNumber;
-    private Map<Book, Integer> borrowedBooks;
+    private List<Book> borrowedBooks;
 
     /**
-     * Constructs a new patron.
+     * Constructs a new Patron instance.
      *
      * @param name        The name of the patron.
      * @param address     The address of the patron.
@@ -21,7 +21,29 @@ public class Patron {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.borrowedBooks = new HashMap<>();
+        this.borrowedBooks = new ArrayList<>();
+    }
+
+    /**
+     * Borrows a book from the library and adds it to the list of borrowed books.
+     *
+     * @param book      The book to be borrowed.
+     * @param numCopies The number of copies to borrow.
+     */
+    public void borrowBook(Book book, int numCopies) {
+        book.borrow(numCopies);
+        borrowedBooks.add(book);
+    }
+
+    /**
+     * Returns a book to the library and removes it from the list of borrowed books.
+     *
+     * @param book      The book to be returned.
+     * @param numCopies The number of copies to return.
+     */
+    public void returnBook(Book book, int numCopies) {
+        book.returnBook(numCopies);
+        borrowedBooks.remove(book);
     }
 
     /**
@@ -31,37 +53,5 @@ public class Patron {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Borrow a specific quantity of a book by the patron.
-     *
-     * @param book     The book to be borrowed.
-     * @param quantity The quantity of copies to borrow.
-     */
-    public void borrowBook(Book book, int quantity) {
-        if (borrowedBooks.containsKey(book)) {
-            borrowedBooks.put(book, borrowedBooks.get(book) + quantity);
-        } else {
-            borrowedBooks.put(book, quantity);
-        }
-    }
-
-    /**
-     * Return a specific quantity of a book by the patron.
-     *
-     * @param book     The book to be returned.
-     * @param quantity The quantity of copies to return.
-     */
-    public void returnBook(Book book, int quantity) {
-        if (borrowedBooks.containsKey(book)) {
-            int currentBorrowed = borrowedBooks.get(book);
-            if (currentBorrowed >= quantity) {
-                borrowedBooks.put(book, currentBorrowed - quantity);
-                if (currentBorrowed - quantity == 0) {
-                    borrowedBooks.remove(book);
-                }
-            }
-        }
     }
 }

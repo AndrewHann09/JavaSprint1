@@ -1,8 +1,8 @@
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Manages books, authors, and patrons in the library.
+ * Manages books, authors, and patrons in a library.
  */
 public class Library {
     private List<Book> books;
@@ -10,56 +10,87 @@ public class Library {
     private List<Patron> patrons;
 
     /**
-     * Constructs a new library with empty lists of books, authors, and patrons.
+     * Constructs a new Library instance.
      */
     public Library() {
-        books = new ArrayList<>();
-        authors = new ArrayList<>();
-        patrons = new ArrayList<>();
+        this.books = new ArrayList<>();
+        this.authors = new ArrayList<>();
+        this.patrons = new ArrayList<>();
     }
 
     /**
-     * Adds a book to the library.
+     * Add a book to the library.
      *
-     * @param book The book to be added.
+     * @param book The book to be added to the library.
      */
     public void addBook(Book book) {
         books.add(book);
     }
 
     /**
-     * Adds an author to the library.
+     * Add an author to the library.
      *
-     * @param author The author to be added.
+     * @param author The author to be added to the library.
      */
     public void addAuthor(Author author) {
         authors.add(author);
     }
 
     /**
-     * Adds a patron to the library.
+     * Add a patron to the library.
      *
-     * @param patron The patron to be added.
+     * @param patron The patron to be added to the library.
      */
     public void addPatron(Patron patron) {
         patrons.add(patron);
     }
 
     /**
-     * Searches for books in the library by title, author, or ISBN.
+     * Search for books in the library by title.
      *
-     * @param keyword The keyword to search for.
-     * @return A list of books matching the search criteria.
+     * @param title The title of the book to search for.
+     * @return A list of books with the specified title.
      */
-    public List<Book> searchBooks(String keyword) {
-        List<Book> foundBooks = new ArrayList<>();
+    public List<Book> searchByTitle(String title) {
+        List<Book> result = new ArrayList<>();
         for (Book book : books) {
-            if (book.getTitle().contains(keyword) || book.getAuthor().getName().contains(keyword) || book.getIsbn().contains(keyword)) {
-                foundBooks.add(book);
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                result.add(book);
             }
         }
-        return foundBooks;
+        return result;
     }
 
-    // Rest of the code...
+/**
+ * Search for books in the library by author.
+ *
+ * @param author The author to search for.
+ * @return A list of books written by the specified author.
+ */
+public List<Book> searchByAuthor(Author author) {
+    List<Book> result = new ArrayList<>();
+    for (Book book : books) {
+        if (book.getAuthor().equals(author)) {
+            result.add(book);
+        }
+    }
+    return result;
 }
+
+/**
+ * Search for a book in the library by ISBN.
+ *
+ * @param ISBN The ISBN of the book to search for.
+ * @return The book with the specified ISBN, or null if not found.
+ */
+public Book searchByISBN(String ISBN) {
+    for (Book book : books) {
+        if (book.getISBN().equals(ISBN)) {
+            return book;
+        }
+    }
+    return null; // Return null if the book with the specified ISBN is not found.
+}
+
+}
+
